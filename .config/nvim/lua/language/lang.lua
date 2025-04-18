@@ -1,30 +1,21 @@
---[[
--- ██╗      █████╗ ███╗   ██╗ ██████╗
--- ██║     ██╔══██╗████╗  ██║██╔════╝
--- ██║     ███████║██╔██╗ ██║██║  ███╗
--- ██║     ██╔══██║██║╚██╗██║██║   ██║
--- ███████╗██║  ██║██║ ╚████║╚██████╔╝
--- ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝
-]]--
+local L = {}
 
--- Lang utilities
--- Collection of "useful" languages, treesitter
-
-local lang = {
+L.lang = {
     languages = {
-        -- List of tree-sitter packages
-        -- TODO: gonna need more than this boss
-        { "lua", "vim", "vimdoc", "c", "java" },
+        { "lua", "vim", "vimdoc", "bash", "c", "llvm", "java", "sql", "html", "css", "vue", "graphql", "php", "phpdoc", "markdown_inline", "comment", "diff", "dockerfile", "yaml", "json", "json5" },
     },
     mason_languages = {
-        -- List of Mason lsp packages
-        -- TODO: add mason languages
+        "lua_ls", "clangd", "jdtls", "jsonls", "lemminx", "sqlls", "intelephense", "pyright", "marksman",
+        "graphql", "html", "volar"
     },
-
-    optional_languages = {
-        -- Optional tree-sitter packages
-        -- TODO: add optional languages
+    ignore_languages = {
     },
 }
 
-return lang
+L.RegisterLanguages = function(register)
+    for _, v in pairs(register) do
+        vim.treesitter.language.register(v.language, v.filetype)
+    end
+end
+
+return L
