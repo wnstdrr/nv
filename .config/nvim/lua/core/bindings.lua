@@ -40,7 +40,7 @@ bndr.bindmap("updatetime", 128)
 vim.wo.signcolumn = "yes"
 vim.g.mapleader = ","
 
--- local initDirectory = vim.fn.expandcmd('%:p:h')
+local initDirectory = vim.fn.expand('%:p:h')
 
 -- Bind physical mappings 
 bndr.physmapMulti({
@@ -71,6 +71,17 @@ bndr.physmapMulti({
         opt = {
             noremap = true,
         },
+    },
+    {
+        -- Code action (quickfix)
+        mode = "n",
+        lhs = '<leader>ca',
+        rhs = function()
+            vim.lsp.buf.code_action({apply = true})
+        end,
+        opt = {
+            noremap = true,
+        }
     },
     {
         -- Nice references
